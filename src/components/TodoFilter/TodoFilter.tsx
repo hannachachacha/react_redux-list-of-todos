@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setQuery, setStatus, clearQuery } from '../../features/filter';
-
-export type Filter = 'all' | 'active' | 'completed';
+import { Status } from '../../types/Status';
 
 export const TodoFilter: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const query = useAppSelector(state => state.filter.query);
+  const status = useAppSelector(state => state.filter.status);
 
   return (
     <form className="field has-addons">
@@ -14,7 +14,8 @@ export const TodoFilter: React.FC = () => {
         <span className="select">
           <select
             data-cy="statusSelect"
-            onChange={e => dispatch(setStatus(e.target.value as Filter))}
+            onChange={e => dispatch(setStatus(e.target.value as Status))}
+            value={status}
           >
             <option value="all">All</option>
             <option value="active">Active</option>
